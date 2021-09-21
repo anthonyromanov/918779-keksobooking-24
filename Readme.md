@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Антон Романов](https://up.htmlacademy.ru/javascript/24/user/918779).
-* Наставник: `Неизвестно`.
+* Наставник: [Егор Дьяченко](https://htmlacademy.ru/profile/semperhomolupus).
 
 ---
 
