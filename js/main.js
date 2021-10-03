@@ -10,9 +10,9 @@ const getRandomIntNumber = (min, max) => {
   max = Math.floor(max);
 
   const Intnumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  
+
   return Intnumber;
-}
+};
 
 getRandomIntNumber(0, 15);
 
@@ -30,6 +30,6 @@ const getRandomNumber = (min, max, count) => {
   const number = Math.random() * (max - min + 1) + min;
 
   return number.toFixed(count);
-}
+};
 
 getRandomNumber(0, 15, 2);
