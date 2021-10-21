@@ -3,7 +3,7 @@ const PLACEMENT = [
   'Шикарная студия в центре города',
   'Апартаменты с видом на пляж',
   'Уютная квартира с джакуззи и панорамными окнами',
-  'Квартира рядом с парком для любителей животных'
+  'Квартира рядом с парком для любителей животных',
 ];
 
 const PLACE_DESCRIPTION = [
@@ -11,7 +11,7 @@ const PLACE_DESCRIPTION = [
   'Дизайнерская мебель, обстановка уюта и комфорта',
   'Романтическая обстановка, большое джакуззи и оргомные окна от пола до потолка с видом на город',
   'Звукопоглащающие окна, современная техника, удобная и мягкая кровать, мебель на заказ от Александра Устюгова',
-  'Квартира для любителей животных. Мягкие ковры, мебель с защитой от игривых лап ваших питомцев. Рядом огромный парк для прогулок'
+  'Квартира для любителей животных. Мягкие ковры, мебель с защитой от игривых лап ваших питомцев. Рядом огромный парк для прогулок',
 ];
 
 const TYPE = [
@@ -19,19 +19,19 @@ const TYPE = [
   'flat',
   'house',
   'bungalow',
-  'hotel'
+  'hotel',
 ];
 
 const CHECKIN = [
   '12:00',
   '13:00',
-  '14:00'
+  '14:00',
 ];
 
 const CHECKOUT = [
   '12:00',
   '13:00',
-  '14:00'
+  '14:00',
 ];
 
 const FEATURES = [
@@ -40,13 +40,13 @@ const FEATURES = [
   'parking',
   'washer',
   'elevator',
-  'conditioner'
+  'conditioner',
 ];
 
 const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
 const MIN = 0;
@@ -120,7 +120,7 @@ const createAuthor = () => {
 
   return {
 
-    avatar: 'img/avatars/user' + num + '.png'
+    avatar: `img/avatars/user${num}.png`,
 
   };
 
@@ -136,24 +136,23 @@ const createLocation = () => {
   return {
 
     lat,
-    lng
+    lng,
 
   };
 
 };
 
-
 //Функция создания объявления
 
 const createOffer = () => {
 
-  const X = createLocation().lat;
-  const Y = createLocation().lng;
+  const X_COORD = createLocation().lat;
+  const Y_COORD = createLocation().lng;
 
   return {
 
     title: PLACEMENT[getRandomIntNumber(MIN, PLACEMENT.length - 1)],
-    address: X + ', ' + Y,
+    address: `${X_COORD}, ${Y_COORD}`,
     price: getRandomIntNumber(MIN_PRICE, MAX_PRICE),
     type: TYPE[getRandomIntNumber(MIN, TYPE.length - 1)],
     rooms: getRandomIntNumber(MIN_ROOMS, MAX_ROOMS),
