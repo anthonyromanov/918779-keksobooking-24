@@ -131,7 +131,7 @@ const createAuthor = () => {
 
 const createLocation = () => {
 
-  const lat = getRandomPositiveFloat(MIN_LAT, MAX_LAT, LOCATION_COUNT);
+  const lat = getRandomNumber(MIN_LAT, MAX_LAT, LOCATION_COUNT);
   const lng = getRandomNumber(MIN_LNG, MAX_LNG, LOCATION_COUNT);
 
   return {
@@ -154,7 +154,7 @@ const createOffer = () => {
 
     title: PLACEMENT[getRandomIntNumber(MIN, PLACEMENT.length - 1)],
     address: `${X_COORD}, ${Y_COORD}`,
-    price: getRandomPositiveInteger(MIN_PRICE, MAX_PRICE),
+    price: getRandomIntNumber(MIN_PRICE, MAX_PRICE),
     type: TYPE[getRandomIntNumber(MIN, TYPE.length - 1)],
     rooms: getRandomIntNumber(MIN_ROOMS, MAX_ROOMS),
     guests: getRandomIntNumber(MIN_GUESTS, MAX_GUESTS),
