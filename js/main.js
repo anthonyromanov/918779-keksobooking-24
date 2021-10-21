@@ -51,6 +51,7 @@ const PHOTOS = [
 
 const MIN = 0;
 const COUNT = 10;
+const LOCATION_COUNT;
 
 const MIN_ROOMS = 1;
 const MAX_ROOMS = 5;
@@ -130,8 +131,8 @@ const createAuthor = () => {
 
 const createLocation = () => {
 
-  const lat = getRandomNumber(MIN_LAT, MAX_LAT, 5);
-  const lng = getRandomNumber(MIN_LNG, MAX_LNG, 5);
+  const lat = getRandomPositiveFloat(MIN_LAT, MAX_LAT, LOCATION_COUNT);
+  const lng = getRandomNumber(MIN_LNG, MAX_LNG, LOCATION_COUNT);
 
   return {
 
@@ -153,7 +154,7 @@ const createOffer = () => {
 
     title: PLACEMENT[getRandomIntNumber(MIN, PLACEMENT.length - 1)],
     address: `${X_COORD}, ${Y_COORD}`,
-    price: getRandomIntNumber(MIN_PRICE, MAX_PRICE),
+    price: getRandomPositiveInteger(MIN_PRICE, MAX_PRICE),
     type: TYPE[getRandomIntNumber(MIN, TYPE.length - 1)],
     rooms: getRandomIntNumber(MIN_ROOMS, MAX_ROOMS),
     guests: getRandomIntNumber(MIN_GUESTS, MAX_GUESTS),
@@ -171,7 +172,3 @@ const createOffer = () => {
 const renderAuthor = Array.from({length: COUNT}, createAuthor);
 const renderOffer = Array.from({length: COUNT}, createOffer);
 const renderLocation = Array.from({length: COUNT}, createLocation);
-
-console.log(renderAuthor);
-console.log(renderOffer);
-console.log(renderLocation);
