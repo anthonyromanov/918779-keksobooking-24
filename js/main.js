@@ -51,7 +51,7 @@ const PHOTOS = [
 
 const MIN = 0;
 const COUNT = 10;
-const LOCATION_COUNT;
+const LOCATION_COUNT = 5;
 
 const MIN_ROOMS = 1;
 const MAX_ROOMS = 5;
