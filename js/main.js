@@ -1,4 +1,5 @@
-import {COUNT, createAuthor, createOffer, createLocation} from './utils.js';
+import {COUNT} from './data.js';
+import {createAuthor, createOffer, createLocation} from './utils.js';
 
 // Рендер 10 объектов
 
