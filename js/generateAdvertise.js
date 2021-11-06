@@ -52,7 +52,7 @@ const createAdvertise = () => {
     author: {
 
       avatar: createAuthor().avatar,
-    
+
     },
 
     offer: {
@@ -70,7 +70,7 @@ const createAdvertise = () => {
       photos: PHOTOS.slice(MIN, getRandomIntNumber(MIN, PHOTOS.length)),
 
     },
-  
+
   };
 
 };
@@ -193,7 +193,7 @@ const generateAdvertise = (advertise) => {
   }
   else {
     descriptionElement.remove();
-  }  
+  }
 
   if (photosArray.length) {
     photosElement.append(...photosArray);
