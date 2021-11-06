@@ -1,12 +1,3 @@
-import {COUNT} from './data.js';
-import {createAuthor, createOffer, createLocation} from './utils.js';
+import {generateAdvertise, firstAdvertiseItem} from './generateAdvertise.js';
 
-// Рендер 10 объектов
-
-const renderAuthor = Array.from({length: COUNT}, createAuthor);
-const renderOffer = Array.from({length: COUNT}, createOffer);
-const renderLocation = Array.from({length: COUNT}, createLocation);
-
-renderAuthor;
-renderOffer;
-renderLocation;
+generateAdvertise(firstAdvertiseItem);
