@@ -92,7 +92,7 @@ timeOutRoom.addEventListener('change', (evt) => {
 
 });
 
-// Валидация кол-ва комнат и кол-ва гостей
+// Валидация количества комнат и количества гостей
 
 const selectRoom = () => {
 
