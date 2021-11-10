@@ -22,6 +22,14 @@ const TYPE = [
   'hotel',
 ];
 
+const MIN_TYPE_PRICE = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
+};
+
 const CHECKIN = [
   '12:00',
   '13:00',
@@ -49,6 +57,9 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+
 const MIN = 0;
 const COUNT = 10;
 const LOCATION_COUNT = 5;
@@ -68,4 +79,4 @@ const MAX_LAT = 35.70000;
 const MIN_LNG = 139.70000;
 const MAX_LNG = 139.80000;
 
-export {PLACEMENT, PLACE_DESCRIPTION, TYPE, CHECKIN, CHECKOUT, FEATURES, PHOTOS, MIN, COUNT, LOCATION_COUNT, MIN_ROOMS, MAX_ROOMS, MIN_GUESTS, MAX_GUESTS, MIN_PRICE, MAX_PRICE, MIN_LAT, MAX_LAT, MIN_LNG, MAX_LNG};
+export {PLACEMENT, PLACE_DESCRIPTION, TYPE, CHECKIN, CHECKOUT, FEATURES, PHOTOS, MIN, COUNT, LOCATION_COUNT, MIN_ROOMS, MAX_ROOMS, MIN_GUESTS, MAX_GUESTS, MIN_PRICE, MAX_PRICE, MIN_LAT, MAX_LAT, MIN_LNG, MAX_LNG, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MIN_TYPE_PRICE};
