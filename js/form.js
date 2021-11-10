@@ -104,22 +104,22 @@ const selectRoom = () => {
     roomGuests[i].removeAttribute('selected');
 
     if (roomGuests[i].value === selectedValue) {
-        
+
       roomGuests[i].hidden = false;
-      roomGuests[i].setAttribute('selected', '')
+      roomGuests[i].setAttribute('selected', '');
     }
 
     if (roomGuests[i].value <= selectedValue && roomGuests[i].value > 0) {
 
       roomGuests[i].hidden = false;
-      roomGuests[i].setAttribute('selected', '')
+      roomGuests[i].setAttribute('selected', '');
     }
-  };
+  }
 };
 
 selectRoom();
 
-quantityRoom.addEventListener('change', (evt) => {
+quantityRoom.addEventListener('change', () => {
 
   selectRoom();
 
