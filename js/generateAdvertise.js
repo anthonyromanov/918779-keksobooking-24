@@ -71,21 +71,22 @@ const createAdvertise = () => {
 
     },
 
+    location: {
+
+      lat: X_COORD,
+      lng: Y_COORD,
+
+    },
+
   };
 
 };
 
 // Рендер 10 объектов
 
-const renderAuthor = Array.from({length: COUNT}, createAuthor);
 const renderAdvertise = Array.from({length: COUNT}, createAdvertise);
-const renderLocation = Array.from({length: COUNT}, createLocation);
 
-renderAuthor;
 renderAdvertise;
-renderLocation;
-
-const firstAdvertiseItem = createAdvertise(1);
 
 const getLocationType = {
   flat: 'Квартира ',
@@ -214,4 +215,4 @@ const generateAdvertise = (advertise) => {
 
 };
 
-export {generateAdvertise, firstAdvertiseItem};
+export {renderAdvertise, generateAdvertise};
