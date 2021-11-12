@@ -35,9 +35,9 @@ L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 
   {
-      
+
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
-  
+
   },
 
 ).addTo(map);
@@ -82,33 +82,31 @@ mainPinMarker.on('moveend', (evt) => {
 
 renderAdvertise.forEach((advertise) => {
 
-    console.log(advertise);
+  const icon = L.icon({
 
-    const icon = L.icon({
+    iconUrl: 'img/pin.svg',
 
-      iconUrl: 'img/pin.svg',
+    iconSize: [40, 40],
 
-      iconSize: [40, 40],
+    iconAnchor: [20, 40],
 
-      iconAnchor: [20, 40],
+  });
 
-    });
+  const { location: {lat, lng} } = advertise;
 
-    const { location: {lat, lng} } = advertise;
+  const marker = L.marker({
 
-    const marker = L.marker({
+    lat,
+    lng,
 
-      lat,
-      lng,
+  },
 
-    },
+  {
 
-    {
+    icon,
 
-      icon,
+  });
 
-    });
-
-    marker.addTo(map).bindPopup(generateAdvertise(advertise));
+  marker.addTo(map).bindPopup(generateAdvertise(advertise));
 
 });

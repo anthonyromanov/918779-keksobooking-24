@@ -210,7 +210,8 @@ const generateAdvertise = (advertise) => {
     avatarElement.remove();
   }
 
-  return advertiseCard;
+  advertiseListFragment.appendChild(advertiseCard);
+  advertiseListElement.appendChild(advertiseListFragment);
 
 };
 
