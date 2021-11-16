@@ -1,13 +1,10 @@
-import {nonActiveStatus, activeStatus} from './form.js';
-import {renderAdvertise, generateAdvertise} from './generateAdvertise.js';
+import {COUNT, DEFAULT_LOCATION, ZOOM} from './data.js';
+import {nonActiveStatus, activeStatus, advertiseForm} from './form.js';
+import {generateAdvertise} from './generateAdvertise.js';
+
+const address = advertiseForm.querySelector('#address');
 
 nonActiveStatus();
-
-const DEFAULT_LAT_LOCATION = 35.68770;
-const DEFAULT_LNG_LOCATION = 139.75433;
-const ZOOM = 10;
-
-const address = document.querySelector('#address');
 
 // Создаем карту, центрируем и масштабируем
 
@@ -17,16 +14,11 @@ const map = L.map('map-canvas')
 
     activeStatus();
 
-    address.value = `${DEFAULT_LAT_LOCATION}, ${DEFAULT_LNG_LOCATION}`;
+    address.value = DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng;
 
   })
 
-  .setView({
-
-    lat: DEFAULT_LAT_LOCATION,
-    lng: DEFAULT_LNG_LOCATION,
-
-  }, ZOOM);
+  .setView(DEFAULT_LOCATION, ZOOM);
 
 // Показываем карту
 
@@ -43,7 +35,7 @@ L.tileLayer(
 ).addTo(map);
 
 // Показываем ГЛАВНУЮ метку
-const mainPinIcon = L.icon ({
+const mainMarkerIcon = L.icon ({
 
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
@@ -54,24 +46,23 @@ const mainPinIcon = L.icon ({
 // Добавление метки на карту
 // Исходное состояние метки и возможность её перемещения
 
-const mainPinMarker = L.marker(
+const mainMarker = L.marker(
 
-  {
-    lat: DEFAULT_LAT_LOCATION,
-    lng: DEFAULT_LNG_LOCATION,
-  },
+  DEFAULT_LOCATION,
 
   {
     draggable: true,
-    icon: mainPinIcon,
+    icon: mainMarkerIcon,
   },
 
 );
 
-mainPinMarker.addTo(map);
+mainMarker.addTo(map);
+
+address.value = `${DEFAULT_LOCATION.lat}, ${DEFAULT_LOCATION.lng}`;
 
 // Обработчик событий метки. Возвращает новые координаты
-mainPinMarker.on('moveend', (evt) => {
+mainMarker.on('moveend', (evt) => {
   const mainPinLocation = evt.target.getLatLng();
   address.value = `${mainPinLocation.lat.toFixed(5)}, ${mainPinLocation.lng.toFixed(5)}`;
 });
@@ -80,33 +71,29 @@ mainPinMarker.on('moveend', (evt) => {
 // Их расположение на карте по полученным данным
 // Показ балуна
 
-renderAdvertise.forEach((advertise) => {
-
-  const icon = L.icon({
-
-    iconUrl: 'img/pin.svg',
-
-    iconSize: [40, 40],
-
-    iconAnchor: [20, 40],
-
+const addMarkers = (advertiseList) => {
+  advertiseList.slice(0, COUNT).forEach((advertise) => {
+    const icon = L.icon({
+      iconUrl: 'img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+    const { location: {lat,lng}} = advertise;
+    const marker = L.marker({
+      lat,
+      lng,
+    },
+    {
+      icon,
+    });
+    marker.addTo(map).bindPopup(generateAdvertise(advertise));
   });
+};
 
-  const { location: {lat, lng} } = advertise;
+const resetMap = () => {
+  map.closePopup();
+  map.setView(DEFAULT_LOCATION, ZOOM);
+  mainMarker.setLatLng(DEFAULT_LOCATION);
+};
 
-  const marker = L.marker({
-
-    lat,
-    lng,
-
-  },
-
-  {
-
-    icon,
-
-  });
-
-  marker.addTo(map).bindPopup(generateAdvertise(advertise));
-
-});
+export {addMarkers, resetMap, DEFAULT_LOCATION};

@@ -1,4 +1,6 @@
+import {DEFAULT_LOCATION, resetMap} from './map.js';
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MIN_TYPE_PRICE} from './data.js';
+
 
 const advertiseForm = document.querySelector('.ad-form');
 const advertiseFilters = document.querySelector('.map__filters');
@@ -125,4 +127,37 @@ quantityRoom.addEventListener('change', () => {
 
 });
 
-export {nonActiveStatus, activeStatus};
+const showMessageWindow = (templateId) => {
+  const body = document.querySelector('body');
+  const messageTemplate = document.querySelector(`#${templateId}`).content;
+  const message = messageTemplate.firstElementChild.cloneNode(true);
+  const onEscPress = (evt) => {
+    if (evt.key === 'Escape') {
+      message.remove();
+      window.removeEventListener('keydown', onEscPress);
+    }
+  };
+  const onMessagePress = () => {
+    message.remove();
+    window.removeEventListener('keydown', onEscPress);
+  };
+  message.addEventListener('click', onMessagePress);
+  window.addEventListener('keydown', onEscPress);
+  body.appendChild(message);
+};
+
+const address = advertiseForm.querySelector('#address');
+
+const resetForm = () => {
+  advertiseForm.reset();
+  resetMap();
+  address.value = `${DEFAULT_LOCATION.lat}, ${DEFAULT_LOCATION.lng}`;
+};
+
+const resetButton = advertiseForm.querySelector('.ad-form__reset');
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+});
+
+export {nonActiveStatus, activeStatus, advertiseForm, showMessageWindow, resetForm};
