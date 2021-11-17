@@ -1,5 +1,6 @@
 import {DEFAULT_LOCATION, resetMap} from './map.js';
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MIN_TYPE_PRICE} from './data.js';
+import {removeUserPictures} from './avatar.js';
 
 const advertiseForm = document.querySelector('.ad-form');
 const allAdvertiseFieldsForm = advertiseForm.querySelectorAll('fieldset');
@@ -172,6 +173,7 @@ const resetButton = advertiseForm.querySelector('.ad-form__reset');
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
+  removeUserPictures();
 });
 
 export {nonActiveStatus, activeStatus, advertiseForm, showMessageWindow, resetForm};
