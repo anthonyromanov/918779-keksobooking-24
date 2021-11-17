@@ -7,45 +7,47 @@ const getLocationType = {
 };
 
 const advertiseTemplate = document.querySelector('#card').content.querySelector('.popup');
-const advertisePhotoElement = document.querySelector('#card').content.querySelector('.popup__photo');
+const advertisePhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
 
-const generateLocationPhotos = (array) => {
-  const newPhotos = [];
+const createAdvertiseGallery = (array = []) => {
+  const gallery = [];
   array.forEach((item) => {
-    const photoTemplate = advertisePhotoElement.cloneNode(true);
-    photoTemplate.src = item;
-    newPhotos.push(photoTemplate);
+    const galleryTemplate = advertisePhotoTemplate.cloneNode(true);
+    galleryTemplate.src = item;
+    gallery.push(galleryTemplate);
   });
-  return newPhotos;
+  return gallery;
+
 };
 
-const generateAdvertise = (advertise) => {
+const generateAdvertise = ({offer, author}) => {
 
-  const advertiseCard = advertiseTemplate.cloneNode(true);
-  const title = advertise.offer.title;
-  const titleElement = advertiseCard.querySelector('.popup__title');
-  const address = advertise.offer.address;
-  const addressElement = advertiseCard.querySelector('.popup__text--address');
-  const price = advertise.offer.price;
-  const priceElement = advertiseCard.querySelector('.popup__text--price');
-  const type = getLocationType[advertise.offer.type];
-  const typeElement = advertiseCard.querySelector('.popup__type');
-  const rooms = advertise.offer.rooms;
-  const guests = advertise.offer.guests;
-  const capacityElement = advertiseCard.querySelector('.popup__text--capacity');
-  const checkin = advertise.offer.checkin;
-  const checkout = advertise.offer.checkout;
-  const timeElement = advertiseCard.querySelector('.popup__text--time');
-  const features = advertise.offer.features;
-  const featuresElement = advertiseCard.querySelector('.popup__features');
-  const description = advertise.offer.description;
-  const descriptionElement = advertiseCard.querySelector('.popup__description');
-  const avatar = advertise.author.avatar;
-  const avatarElement = advertiseCard.querySelector('.popup__avatar');
-  const photosElement = advertiseCard.querySelector('.popup__photos');
-  const photoElement = photosElement.querySelector('.popup__photo');
-  photoElement.remove();
-  const photosArray = generateLocationPhotos(advertise.offer.photos);
+  const advertiseElement = advertiseTemplate.cloneNode(true);
+
+  const title = offer.title;
+  const titleElement = advertiseElement.querySelector('.popup__title');
+  const address = offer.address;
+  const addressElement = advertiseElement.querySelector('.popup__text--address');
+  const price = offer.price;
+  const priceElement = advertiseElement.querySelector('.popup__text--price');
+  const type = getLocationType[offer.type];
+  const typeElement = advertiseElement.querySelector('.popup__type');
+  const rooms = offer.rooms;
+  const guests = offer.guests;
+  const capacityElement = advertiseElement.querySelector('.popup__text--capacity');
+  const checkin = offer.checkin;
+  const checkout = offer.checkout;
+  const timeElement = advertiseElement.querySelector('.popup__text--time');
+  const features = offer.features;
+  const featuresElement = advertiseElement.querySelector('.popup__features');
+  const description = offer.description;
+  const descriptionElement = advertiseElement.querySelector('.popup__description');
+  const avatar = author.avatar;
+  const avatarElement = advertiseElement.querySelector('.popup__avatar');
+  const photos = advertiseElement.querySelector('.popup__photos');
+  const photoElement = photos.querySelector('.popup__photo');
+  const photoGallery = createAdvertiseGallery(offer.photos);
+
 
   if (title) {
     titleElement.textContent = title;
@@ -103,11 +105,13 @@ const generateAdvertise = (advertise) => {
     descriptionElement.remove();
   }
 
-  if (photosArray.length) {
-    photosElement.append(...photosArray);
+  photoElement.remove();
+
+  if (photoGallery.length) {
+    photos.append(...photoGallery);
   }
   else {
-    photosElement.remove();
+    photos.remove();
   }
 
   if (avatar) {
@@ -117,7 +121,7 @@ const generateAdvertise = (advertise) => {
     avatarElement.remove();
   }
 
-  return advertiseCard;
+  return advertiseElement;
 
 };
 

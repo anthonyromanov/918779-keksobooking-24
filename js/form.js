@@ -1,11 +1,12 @@
 import {DEFAULT_LOCATION, resetMap} from './map.js';
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MIN_TYPE_PRICE} from './data.js';
-
+import {removeUserPictures} from './avatar.js';
 
 const advertiseForm = document.querySelector('.ad-form');
-const advertiseFilters = document.querySelector('.map__filters');
-const allFieldsForm = advertiseForm.querySelectorAll('fieldset');
+const allAdvertiseFieldsForm = advertiseForm.querySelectorAll('fieldset');
 const advertiseFormTitle = document.querySelector('.notice__title');
+const mapFilters = document.querySelector('.map__filters');
+const filtersList = mapFilters.querySelectorAll('.map__filter');
 
 const advertiseTitle = advertiseForm.querySelector('#title');
 const quantityRoom = advertiseForm.querySelector('#room_number');
@@ -16,13 +17,20 @@ const priceRoom = advertiseForm.querySelector('#price');
 const timeInRoom = advertiseForm.querySelector('#timein');
 const timeOutRoom = advertiseForm.querySelector('#timeout');
 
+
 // Неактивный статус страницы
 const nonActiveStatus = () => {
   advertiseForm.classList.add('ad-form--disabled');
-  advertiseFilters.classList.add('ad-form--disabled');
   advertiseFormTitle.classList.add('ad-form--disabled');
+  mapFilters.classList.add('map__filters--disabled');
 
-  allFieldsForm.forEach((element) => {
+  allAdvertiseFieldsForm.forEach((element) => {
+
+    element.disabled = true;
+
+  });
+
+  filtersList.forEach((element) => {
 
     element.disabled = true;
 
@@ -33,10 +41,16 @@ const nonActiveStatus = () => {
 // Активный статус страницы
 const activeStatus = () => {
   advertiseForm.classList.remove('ad-form--disabled');
-  advertiseFilters.classList.remove('ad-form--disabled');
   advertiseFormTitle.classList.remove('ad-form--disabled');
+  mapFilters.classList.remove('map__filters--disabled');
 
-  allFieldsForm.forEach((element) => {
+  allAdvertiseFieldsForm.forEach((element) => {
+
+    element.disabled = false;
+
+  });
+
+  filtersList.forEach((element) => {
 
     element.disabled = false;
 
@@ -158,6 +172,7 @@ const resetButton = advertiseForm.querySelector('.ad-form__reset');
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
+  removeUserPictures();
 });
 
 export {nonActiveStatus, activeStatus, advertiseForm, showMessageWindow, resetForm};

@@ -1,4 +1,4 @@
-//Функция, возвращающая случайное целое число из переданного диапазона включительно
+// Функция, возвращающая случайное целое число из переданного диапазона включительно
 
 const getRandomIntNumber = (min, max) => {
 
@@ -17,7 +17,7 @@ const getRandomIntNumber = (min, max) => {
 
 };
 
-//Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно. Будет использоваться для генерации временных географических координат
+// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно. Будет использоваться для генерации временных географических координат
 
 const getRandomNumber = (min, max, count) => {
 
@@ -36,15 +36,17 @@ const getRandomNumber = (min, max, count) => {
 
 };
 
+//Создает предупреждение об ошибке сервера
+
 const WARNING_SHOW_TIME = 5000;
 
 const showWarning = () => {
   const warningWrapper = document.createElement('div');
-  warningWrapper.style.zIndex = 100;
+  warningWrapper.style.zIndex = '100';
   warningWrapper.style.position = 'absolute';
-  warningWrapper.style.left = 0;
-  warningWrapper.style.top = 0;
-  warningWrapper.style.right = 0;
+  warningWrapper.style.left = '0';
+  warningWrapper.style.top = '0';
+  warningWrapper.style.right = '0';
   warningWrapper.style.padding = '10px 3px';
   warningWrapper.style.fontSize = '30px';
   warningWrapper.style.textAlign = 'center';
