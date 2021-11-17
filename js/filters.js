@@ -5,7 +5,7 @@ const roomsSelect = mapFilters.querySelector('#housing-rooms');
 const guestsSelect = mapFilters.querySelector('#housing-guests');
 
 // Фильтрация по типу жилья
-const filterByLocation = (advertise) => {
+const filterByVacation = (advertise) => {
 
   if (locationSelect.value === 'any') {
 
@@ -80,4 +80,12 @@ const filterByFeatures = (advertise) => {
 
 };
 
-export {filterByLocation, filterByPrice, filterByRooms, filterByGuests, filterByFeatures};
+const mapFiltersList = (advertise) =>
+
+  filterByVacation(advertise)
+  && filterByPrice(advertise)
+  && filterByRooms(advertise)
+  && filterByGuests(advertise)
+  && filterByFeatures(advertise);
+
+export {mapFiltersList};

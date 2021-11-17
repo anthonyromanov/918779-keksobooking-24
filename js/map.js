@@ -1,7 +1,7 @@
-import {COUNT, DEFAULT_LOCATION, ZOOM} from './data.js';
+import {DEFAULT_LOCATION, ZOOM, COUNT, MAIN_MARKER_ICON_URL, MAIN_MARKER_ICON_SIZE, MAIN_MARKER_ICON_ANCHOR, MARKER_ICON_URL, MARKER_ICON_SIZE, MARKER_ICON_ANCHOR} from './data.js';
 import {nonActiveStatus, activeStatus, advertiseForm} from './form.js';
 import {generateAdvertise} from './generateAdvertise.js';
-import {filterByLocation, filterByPrice, filterByRooms, filterByGuests, filterByFeatures} from './filters.js';
+import {mapFiltersList} from './filters.js';
 import {debounce} from './utils/debounce.js';
 
 const address = advertiseForm.querySelector('#address');
@@ -41,9 +41,9 @@ L.tileLayer(
 // Показываем ГЛАВНУЮ метку
 const mainMarkerIcon = L.icon ({
 
-  iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconUrl: MAIN_MARKER_ICON_URL,
+  iconSize: MAIN_MARKER_ICON_SIZE,
+  iconAnchor: MAIN_MARKER_ICON_ANCHOR,
 
 });
 
@@ -85,18 +85,15 @@ const addMarkers = (advertiseList) => {
 
   advertiseList
     .slice()
-    .filter(filterByLocation)
-    .filter(filterByPrice)
-    .filter(filterByRooms)
-    .filter(filterByGuests)
-    .filter(filterByFeatures)
+    .filter(mapFiltersList)
     .slice(0, COUNT).forEach((advertise) => {
+
       const icon = L.icon({
-        iconUrl: 'img/pin.svg',
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
+        iconUrl: MARKER_ICON_URL,
+        iconSize: MARKER_ICON_SIZE,
+        iconAnchor: MARKER_ICON_ANCHOR,
       });
-      const { location: {lat,lng}} = advertise;
+      const {location: {lat, lng}} = advertise;
       const marker = L.marker({
         lat,
         lng,
@@ -110,6 +107,7 @@ const addMarkers = (advertiseList) => {
       marker
         .addTo(map)
         .bindPopup(generateAdvertise(advertise));
+
     });
 };
 
