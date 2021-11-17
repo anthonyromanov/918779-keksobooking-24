@@ -1,10 +1,14 @@
 import {COUNT, DEFAULT_LOCATION, ZOOM} from './data.js';
 import {nonActiveStatus, activeStatus, advertiseForm} from './form.js';
 import {generateAdvertise} from './generateAdvertise.js';
+import {filterByLocation, filterByPrice, filterByRooms, filterByGuests, filterByFeatures} from './filters.js';
+import {debounce} from './utils/debounce.js';
 
 const address = advertiseForm.querySelector('#address');
 
 nonActiveStatus();
+
+const markers = [];
 
 // Создаем карту, центрируем и масштабируем
 
@@ -71,23 +75,42 @@ mainMarker.on('moveend', (evt) => {
 // Их расположение на карте по полученным данным
 // Показ балуна
 
+const mapFilters = document.querySelector('.map__filters');
+
 const addMarkers = (advertiseList) => {
-  advertiseList.slice(0, COUNT).forEach((advertise) => {
-    const icon = L.icon({
-      iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
-    const { location: {lat,lng}} = advertise;
-    const marker = L.marker({
-      lat,
-      lng,
-    },
-    {
-      icon,
-    });
-    marker.addTo(map).bindPopup(generateAdvertise(advertise));
+
+  markers.forEach((marker) => {
+    marker.remove();
   });
+
+  advertiseList
+    .slice()
+    .filter(filterByLocation)
+    .filter(filterByPrice)
+    .filter(filterByRooms)
+    .filter(filterByGuests)
+    .filter(filterByFeatures)
+    .slice(0, COUNT).forEach((advertise) => {
+      const icon = L.icon({
+        iconUrl: 'img/pin.svg',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      });
+      const { location: {lat,lng}} = advertise;
+      const marker = L.marker({
+        lat,
+        lng,
+      },
+      {
+        icon,
+      });
+
+      markers.push(marker);
+
+      marker
+        .addTo(map)
+        .bindPopup(generateAdvertise(advertise));
+    });
 };
 
 const resetMap = () => {
@@ -96,4 +119,8 @@ const resetMap = () => {
   mainMarker.setLatLng(DEFAULT_LOCATION);
 };
 
-export {addMarkers, resetMap, DEFAULT_LOCATION};
+const sendFilters = (advertiseList) => {
+  mapFilters.addEventListener('change', debounce(() => addMarkers(advertiseList)));
+};
+
+export {addMarkers, resetMap, DEFAULT_LOCATION, sendFilters};

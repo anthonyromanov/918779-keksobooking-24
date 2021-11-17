@@ -1,4 +1,4 @@
-import {addMarkers} from './map.js';
+import {addMarkers, sendFilters} from './map.js';
 import {getData} from './api.js';
 import {sendData} from './api.js';
 import {advertiseForm, resetForm, showMessageWindow} from './form.js';
@@ -17,5 +17,9 @@ const onFormError = () => {
 
 };
 
-getData(addMarkers, showWarning);
+getData((advertiseList) => {
+  addMarkers(advertiseList);
+  sendFilters(advertiseList);
+}, showWarning);
+
 sendData(advertiseForm, onFormSuccess, onFormError);
