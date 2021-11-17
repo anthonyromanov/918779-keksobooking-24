@@ -36,4 +36,27 @@ const getRandomNumber = (min, max, count) => {
 
 };
 
-export {getRandomIntNumber, getRandomNumber};
+const WARNING_SHOW_TIME = 5000;
+
+const showWarning = () => {
+  const warningWrapper = document.createElement('div');
+  warningWrapper.style.zIndex = 100;
+  warningWrapper.style.position = 'absolute';
+  warningWrapper.style.left = 0;
+  warningWrapper.style.top = 0;
+  warningWrapper.style.right = 0;
+  warningWrapper.style.padding = '10px 3px';
+  warningWrapper.style.fontSize = '30px';
+  warningWrapper.style.textAlign = 'center';
+  warningWrapper.style.backgroundColor = 'red';
+
+  warningWrapper.textContent = 'Ошибка сервера';
+
+  document.body.append(warningWrapper);
+
+  setTimeout(() => {
+    warningWrapper.remove();
+  }, WARNING_SHOW_TIME);
+};
+
+export {getRandomIntNumber, getRandomNumber, showWarning};
