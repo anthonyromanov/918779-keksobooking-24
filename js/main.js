@@ -1,7 +1,7 @@
 import {addMarkers, sendFilters} from './map.js';
 import {getData} from './api.js';
 import {sendData} from './api.js';
-import {advertiseForm, resetForm, showMessageWindow} from './form.js';
+import {formElement, resetForm, showMessageWindow} from './form.js';
 import {showWarning} from './utils.js';
 import {loadUserAvatar, loadUserVacationPhoto, removeUserPictures} from './avatar.js';
 
@@ -26,7 +26,7 @@ getData((advertiseList) => {
 
 }, showWarning);
 
-sendData(advertiseForm, onFormSuccess, onFormError);
+sendData(formElement, onFormSuccess, onFormError);
 
 loadUserAvatar();
 loadUserVacationPhoto();

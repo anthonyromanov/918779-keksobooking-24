@@ -6,23 +6,23 @@ const getLocationType = {
   hotel: 'Отель',
 };
 
-const advertiseTemplate = document.querySelector('#card').content.querySelector('.popup');
-const advertisePhotoTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
+const popupTemplateElement = document.querySelector('#card').content.querySelector('.popup');
+const popupPhotoTemplateElement = document.querySelector('#card').content.querySelector('.popup__photo');
 
-const createAdvertiseGallery = (array = []) => {
-  const gallery = [];
+const showVacationPhotos = (array = []) => {
+  const vacationPhotos = [];
   array.forEach((item) => {
-    const galleryTemplate = advertisePhotoTemplate.cloneNode(true);
-    galleryTemplate.src = item;
-    gallery.push(galleryTemplate);
+    const photosTemplate = popupPhotoTemplateElement.cloneNode(true);
+    photosTemplate.src = item;
+    vacationPhotos.push(photosTemplate);
   });
-  return gallery;
+  return vacationPhotos;
 
 };
 
 const generateAdvertise = ({offer, author}) => {
 
-  const advertiseElement = advertiseTemplate.cloneNode(true);
+  const advertiseElement = popupTemplateElement.cloneNode(true);
 
   const title = offer.title;
   const titleElement = advertiseElement.querySelector('.popup__title');
@@ -44,9 +44,9 @@ const generateAdvertise = ({offer, author}) => {
   const descriptionElement = advertiseElement.querySelector('.popup__description');
   const avatar = author.avatar;
   const avatarElement = advertiseElement.querySelector('.popup__avatar');
-  const photos = advertiseElement.querySelector('.popup__photos');
-  const photoElement = photos.querySelector('.popup__photo');
-  const photoGallery = createAdvertiseGallery(offer.photos);
+  const photosElement = advertiseElement.querySelector('.popup__photos');
+  const photoElement = photosElement.querySelector('.popup__photo');
+  const photoGallery = showVacationPhotos(offer.photos);
 
 
   if (title) {
@@ -108,10 +108,10 @@ const generateAdvertise = ({offer, author}) => {
   photoElement.remove();
 
   if (photoGallery.length) {
-    photos.append(...photoGallery);
+    photosElement.append(...photoGallery);
   }
   else {
-    photos.remove();
+    photosElement.remove();
   }
 
   if (avatar) {

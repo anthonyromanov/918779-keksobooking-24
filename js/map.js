@@ -1,12 +1,10 @@
-import {DEFAULT_LOCATION, ZOOM, COUNT, MAIN_MARKER_ICON_URL, MAIN_MARKER_ICON_SIZE, MAIN_MARKER_ICON_ANCHOR, MARKER_ICON_URL, MARKER_ICON_SIZE, MARKER_ICON_ANCHOR} from './data.js';
-import {nonActiveStatus, activeStatus, advertiseForm} from './form.js';
+import {DEFAULT_LOCATION, ZOOM, COUNT, MAIN_MARKER_ICON_URL, MAIN_MARKER_ICON_SIZES, MAIN_MARKER_ICON_ANCHORS, MARKER_ICON_URL, MARKER_ICON_SIZES, MARKER_ICON_ANCHORS} from './data.js';
+import {EnableNonActiveStatus, EnableActiveStatus, addressElement, filtersElement} from './form.js';
 import {generateAdvertise} from './generateAdvertise.js';
 import {mapFiltersList} from './filters.js';
 import {debounce} from './utils/debounce.js';
 
-const address = advertiseForm.querySelector('#address');
-
-nonActiveStatus();
+EnableNonActiveStatus();
 
 const markers = [];
 
@@ -16,9 +14,9 @@ const map = L.map('map-canvas')
 
   .on('load', () => {
 
-    activeStatus();
+    EnableActiveStatus();
 
-    address.value = DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng;
+    addressElement.value = DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng;
 
   })
 
@@ -42,8 +40,8 @@ L.tileLayer(
 const mainMarkerIcon = L.icon ({
 
   iconUrl: MAIN_MARKER_ICON_URL,
-  iconSize: MAIN_MARKER_ICON_SIZE,
-  iconAnchor: MAIN_MARKER_ICON_ANCHOR,
+  iconSize: MAIN_MARKER_ICON_SIZES,
+  iconAnchor: MAIN_MARKER_ICON_ANCHORS,
 
 });
 
@@ -63,19 +61,17 @@ const mainMarker = L.marker(
 
 mainMarker.addTo(map);
 
-address.value = `${DEFAULT_LOCATION.lat}, ${DEFAULT_LOCATION.lng}`;
+addressElement.value = `${DEFAULT_LOCATION.lat}, ${DEFAULT_LOCATION.lng}`;
 
 // Обработчик событий метки. Возвращает новые координаты
 mainMarker.on('moveend', (evt) => {
   const mainPinLocation = evt.target.getLatLng();
-  address.value = `${mainPinLocation.lat.toFixed(5)}, ${mainPinLocation.lng.toFixed(5)}`;
+  addressElement.value = `${mainPinLocation.lat.toFixed(5)}, ${mainPinLocation.lng.toFixed(5)}`;
 });
 
 // Отображение меток объявлений
 // Их расположение на карте по полученным данным
 // Показ балуна
-
-const mapFilters = document.querySelector('.map__filters');
 
 const addMarkers = (advertiseList) => {
 
@@ -90,8 +86,8 @@ const addMarkers = (advertiseList) => {
 
       const icon = L.icon({
         iconUrl: MARKER_ICON_URL,
-        iconSize: MARKER_ICON_SIZE,
-        iconAnchor: MARKER_ICON_ANCHOR,
+        iconSize: MARKER_ICON_SIZES,
+        iconAnchor: MARKER_ICON_ANCHORS,
       });
       const {location: {lat, lng}} = advertise;
       const marker = L.marker({
@@ -118,7 +114,7 @@ const resetMap = () => {
 };
 
 const sendFilters = (advertiseList) => {
-  mapFilters.addEventListener('change', debounce(() => addMarkers(advertiseList)));
+  filtersElement.addEventListener('change', debounce(() => addMarkers(advertiseList)));
 };
 
 export {addMarkers, resetMap, DEFAULT_LOCATION, sendFilters};
