@@ -133,7 +133,7 @@ const selectRoom = () => {
       element.hidden = false;
       element.setAttribute('selected', '');
     }
-    
+
   });
 
 };
@@ -176,7 +176,7 @@ resetButtonElement.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetForm();
   removeUserPictures();
-  
+
 });
 
 export {EnableNonActiveStatus, EnableActiveStatus, formElement, showMessageWindow, resetForm, addressElement, filtersElement};
