@@ -7,8 +7,8 @@ const getData = (onSuccess, onError) => {
     .catch(() => onError());
 };
 
-const sendData = (advertiseForm, onSuccess, onError) => {
-  advertiseForm.addEventListener('submit', (evt) => {
+const sendData = (formElement, onSuccess, onError) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const formData = new FormData(evt.target);
     fetch(

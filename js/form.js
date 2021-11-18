@@ -2,35 +2,38 @@ import {DEFAULT_LOCATION, resetMap} from './map.js';
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, MIN_TYPE_PRICE} from './data.js';
 import {removeUserPictures} from './avatar.js';
 
-const advertiseForm = document.querySelector('.ad-form');
-const allAdvertiseFieldsForm = advertiseForm.querySelectorAll('fieldset');
-const advertiseFormTitle = document.querySelector('.notice__title');
-const mapFilters = document.querySelector('.map__filters');
-const filtersList = mapFilters.querySelectorAll('.map__filter');
+const formElement = document.querySelector('.ad-form');
+const formFieldsElement = formElement.querySelectorAll('fieldset');
+const formTitleElement = document.querySelector('.notice__title');
+const filtersElement = document.querySelector('.map__filters');
+const filtersListElement = filtersElement.querySelectorAll('.map__filter');
 
-const advertiseTitle = advertiseForm.querySelector('#title');
-const quantityRoom = advertiseForm.querySelector('#room_number');
-const сapacityRoom = advertiseForm.querySelector('#capacity');
-const roomGuests = сapacityRoom.querySelectorAll('option');
-const typeRoom = advertiseForm.querySelector('#type');
-const priceRoom = advertiseForm.querySelector('#price');
-const timeInRoom = advertiseForm.querySelector('#timein');
-const timeOutRoom = advertiseForm.querySelector('#timeout');
+const titleNameElement = formElement.querySelector('#title');
+const quantityRoomElement = formElement.querySelector('#room_number');
+const сapacityRoomElement = formElement.querySelector('#capacity');
+const roomGuestsElement = сapacityRoomElement.querySelectorAll('option');
+const typeRoomElement = formElement.querySelector('#type');
+const priceRoomElement = formElement.querySelector('#price');
+const timeInRoomElement = formElement.querySelector('#timein');
+const timeOutRoomElement = formElement.querySelector('#timeout');
+
+const addressElement = formElement.querySelector('#address');
+const resetButtonElement = formElement.querySelector('.ad-form__reset');
 
 
 // Неактивный статус страницы
-const nonActiveStatus = () => {
-  advertiseForm.classList.add('ad-form--disabled');
-  advertiseFormTitle.classList.add('ad-form--disabled');
-  mapFilters.classList.add('map__filters--disabled');
+const EnableNonActiveStatus = () => {
+  formElement.classList.add('ad-form--disabled');
+  formTitleElement.classList.add('ad-form--disabled');
+  filtersElement.classList.add('map__filters--disabled');
 
-  allAdvertiseFieldsForm.forEach((element) => {
+  formFieldsElement.forEach((element) => {
 
     element.disabled = true;
 
   });
 
-  filtersList.forEach((element) => {
+  filtersListElement.forEach((element) => {
 
     element.disabled = true;
 
@@ -39,18 +42,18 @@ const nonActiveStatus = () => {
 };
 
 // Активный статус страницы
-const activeStatus = () => {
-  advertiseForm.classList.remove('ad-form--disabled');
-  advertiseFormTitle.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
+const EnableActiveStatus = () => {
+  formElement.classList.remove('ad-form--disabled');
+  formTitleElement.classList.remove('ad-form--disabled');
+  filtersElement.classList.remove('map__filters--disabled');
 
-  allAdvertiseFieldsForm.forEach((element) => {
+  formFieldsElement.forEach((element) => {
 
     element.disabled = false;
 
   });
 
-  filtersList.forEach((element) => {
+  filtersListElement.forEach((element) => {
 
     element.disabled = false;
 
@@ -60,51 +63,51 @@ const activeStatus = () => {
 
 // Проверяет количество символов в заголовке объявления до отправки формы
 
-advertiseTitle.addEventListener('input', () => {
+titleNameElement.addEventListener('input', () => {
 
-  const valueLength = advertiseTitle.value.length;
+  const valueLength = titleNameElement.value.length;
 
   if (valueLength < MIN_TITLE_LENGTH) {
 
-    advertiseTitle.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
+    titleNameElement.setCustomValidity(`Ещё ${  MIN_TITLE_LENGTH - valueLength } симв.`);
 
   } else if (valueLength > MAX_TITLE_LENGTH) {
 
-    advertiseTitle.setCustomValidity(`Удалите лишние ${  valueLength - MAX_TITLE_LENGTH } симв.`);
+    titleNameElement.setCustomValidity(`Удалите лишние ${  valueLength - MAX_TITLE_LENGTH } симв.`);
 
   } else {
 
-    advertiseTitle.setCustomValidity('');
+    titleNameElement.setCustomValidity('');
 
   }
 
-  advertiseTitle.reportValidity();
+  titleNameElement.reportValidity();
 
 });
 
 // Проверяет цены за ночь по типу жилья
 
-typeRoom.addEventListener('change', (evt) => {
+typeRoomElement.addEventListener('change', (evt) => {
 
   const minPrice = MIN_TYPE_PRICE[evt.target.value];
 
-  priceRoom.min = minPrice;
+  priceRoomElement.min = minPrice;
 
-  priceRoom.placeholder = minPrice.toString();
+  priceRoomElement.placeholder = minPrice.toString();
 
 });
 
 // Синхронизирует времени въезда в номер и время выезда из номера
 
-timeInRoom.addEventListener('change', (evt) => {
+timeInRoomElement.addEventListener('change', (evt) => {
 
-  timeOutRoom.value = evt.target.value;
+  timeOutRoomElement.value = evt.target.value;
 
 });
 
-timeOutRoom.addEventListener('change', (evt) => {
+timeOutRoomElement.addEventListener('change', (evt) => {
 
-  timeInRoom.value = evt.target.value;
+  timeInRoomElement.value = evt.target.value;
 
 });
 
@@ -112,67 +115,68 @@ timeOutRoom.addEventListener('change', (evt) => {
 
 const selectRoom = () => {
 
-  const selectedValue = (quantityRoom.value === '100') ? '0' : quantityRoom.value;
+  const selectedValue = (quantityRoomElement.value === '100') ? '0' : quantityRoomElement.value;
 
-  for (let i = 0; i < roomGuests.length; i++) {
+  roomGuestsElement.forEach((element) => {
 
-    roomGuests[i].hidden = true;
-    roomGuests[i].removeAttribute('selected');
+    element.hidden = true;
+    element.removeAttribute('selected');
 
-    if (roomGuests[i].value === selectedValue) {
+    if (element.value === selectedValue) {
 
-      roomGuests[i].hidden = false;
-      roomGuests[i].setAttribute('selected', '');
+      element.hidden = false;
+      element.setAttribute('selected', '');
     }
 
-    if (roomGuests[i].value <= selectedValue && roomGuests[i].value > 0) {
+    if (element.value <= selectedValue && element.value > 0) {
 
-      roomGuests[i].hidden = false;
-      roomGuests[i].setAttribute('selected', '');
+      element.hidden = false;
+      element.setAttribute('selected', '');
     }
-  }
+
+  });
+
 };
 
 selectRoom();
 
-quantityRoom.addEventListener('change', () => {
+quantityRoomElement.addEventListener('change', () => {
 
   selectRoom();
 
 });
 
 const showMessageWindow = (templateId) => {
-  const body = document.querySelector('body');
-  const messageTemplate = document.querySelector(`#${templateId}`).content;
-  const message = messageTemplate.firstElementChild.cloneNode(true);
+  const bodyElement = document.querySelector('body');
+  const messageTemplateElement = document.querySelector(`#${templateId}`).content;
+  const messageElement = messageTemplateElement.firstElementChild.cloneNode(true);
   const onEscPress = (evt) => {
     if (evt.key === 'Escape') {
-      message.remove();
+      messageElement.remove();
       window.removeEventListener('keydown', onEscPress);
     }
   };
   const onMessagePress = () => {
-    message.remove();
+    messageElement.remove();
     window.removeEventListener('keydown', onEscPress);
   };
-  message.addEventListener('click', onMessagePress);
+  messageElement.addEventListener('click', onMessagePress);
   window.addEventListener('keydown', onEscPress);
-  body.appendChild(message);
+  bodyElement.appendChild(messageElement);
 };
-
-const address = advertiseForm.querySelector('#address');
 
 const resetForm = () => {
-  advertiseForm.reset();
+  formElement.reset();
   resetMap();
-  address.value = `${DEFAULT_LOCATION.lat}, ${DEFAULT_LOCATION.lng}`;
+  addressElement.value = `${DEFAULT_LOCATION.lat}, ${DEFAULT_LOCATION.lng}`;
 };
 
-const resetButton = advertiseForm.querySelector('.ad-form__reset');
-resetButton.addEventListener('click', (evt) => {
+resetButtonElement.addEventListener('click', (evt) => {
+
   evt.preventDefault();
   resetForm();
   removeUserPictures();
+
 });
 
-export {nonActiveStatus, activeStatus, advertiseForm, showMessageWindow, resetForm};
+export {EnableNonActiveStatus, EnableActiveStatus, formElement, showMessageWindow, resetForm, addressElement, filtersElement};

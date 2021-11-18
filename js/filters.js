@@ -1,69 +1,70 @@
-const mapFilters = document.querySelector('.map__filters');
-const locationSelect = mapFilters.querySelector('#housing-type');
-const priceSelect = mapFilters.querySelector('#housing-price');
-const roomsSelect = mapFilters.querySelector('#housing-rooms');
-const guestsSelect = mapFilters.querySelector('#housing-guests');
+import {filtersElement} from './form.js';
+
+const vacationSelectElement = filtersElement.querySelector('#housing-type');
+const priceSelectElement = filtersElement.querySelector('#housing-price');
+const roomsSelectElement = filtersElement.querySelector('#housing-rooms');
+const guestsSelectElement = filtersElement.querySelector('#housing-guests');
 
 // Фильтрация по типу жилья
 const filterByVacation = (advertise) => {
 
-  if (locationSelect.value === 'any') {
+  if (vacationSelectElement.value === 'any') {
 
     return true;
 
   }
 
-  return locationSelect.value === advertise.offer.type;
+  return vacationSelectElement.value === advertise.offer.type;
 };
 
 // Фильтрация по цене
 const filterByPrice = (advertise) => {
 
-  if (priceSelect.value === 'any') {
+  if (priceSelectElement.value === 'any') {
 
     return true;
 
   }
 
-  if (priceSelect.value === 'low' && advertise.offer.price >= 0 && advertise.offer.price < 10000) {
+  if (priceSelectElement.value === 'low' && advertise.offer.price >= 0 && advertise.offer.price < 10000) {
 
     return true;
 
   }
 
-  if (priceSelect.value === 'middle' && advertise.offer.price >= 10000 && advertise.offer.price <= 50000) {
+  if (priceSelectElement.value === 'middle' && advertise.offer.price >= 10000 && advertise.offer.price <= 50000) {
 
     return true;
 
   }
 
-  return priceSelect.value === 'high' && advertise.offer.price > 50000;
+  return priceSelectElement.value === 'high' && advertise.offer.price > 50000;
 
 };
 
 // Фильтрация по количеству комнат
 const filterByRooms = (advertise) => {
 
-  if (roomsSelect.value === 'any') {
+  if (roomsSelectElement.value === 'any') {
 
     return true;
 
   }
 
-  return Number(roomsSelect.value) === advertise.offer.rooms;
+  return Number(roomsSelectElement.value) === advertise.offer.rooms;
 
 };
 
 // Фильтрация по количеству гостей
 const filterByGuests = (advertise) => {
 
-  if (guestsSelect.value === 'any') {
+  if (guestsSelectElement.value === 'any') {
 
     return true;
 
   }
 
-  return Number(guestsSelect.value) === advertise.offer.guests;
+  return Number(guestsSelectElement.value) === advertise.offer.guests;
 
 };
 
@@ -72,9 +73,9 @@ const filterByFeatures = (advertise) => {
 
   const features = advertise.offer.features || [];
 
-  const featuresList = mapFilters.querySelectorAll('.map__checkbox:checked');
+  const featuresListElement = filtersElement.querySelectorAll('.map__checkbox:checked');
 
-  const featuresSelected = Array.from(featuresList).map((input) => input.value);
+  const featuresSelected = Array.from(featuresListElement).map((input) => input.value);
 
   return !featuresSelected.some((element) => !features.includes(element));
 
