@@ -22,7 +22,7 @@ const resetButtonElement = formElement.querySelector('.ad-form__reset');
 
 
 // Неактивный статус страницы
-const EnableNonActiveStatus = () => {
+const enableNonActiveStatus = () => {
   formElement.classList.add('ad-form--disabled');
   formTitleElement.classList.add('ad-form--disabled');
   filtersElement.classList.add('map__filters--disabled');
@@ -42,7 +42,7 @@ const EnableNonActiveStatus = () => {
 };
 
 // Активный статус страницы
-const EnableActiveStatus = () => {
+const enableActiveStatus = () => {
   formElement.classList.remove('ad-form--disabled');
   formTitleElement.classList.remove('ad-form--disabled');
   filtersElement.classList.remove('map__filters--disabled');
@@ -179,4 +179,4 @@ resetButtonElement.addEventListener('click', (evt) => {
 
 });
 
-export {EnableNonActiveStatus, EnableActiveStatus, formElement, showMessageWindow, resetForm, addressElement, filtersElement};
+export {enableNonActiveStatus, enableActiveStatus, formElement, showMessageWindow, resetForm, addressElement, filtersElement};
