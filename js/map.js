@@ -1,10 +1,10 @@
 import {DEFAULT_LOCATION, ZOOM, COUNT, MAIN_MARKER_ICON_URL, MAIN_MARKER_ICON_SIZES, MAIN_MARKER_ICON_ANCHORS, MARKER_ICON_URL, MARKER_ICON_SIZES, MARKER_ICON_ANCHORS} from './data.js';
-import {EnableNonActiveStatus, EnableActiveStatus, addressElement, filtersElement} from './form.js';
+import {enableNonActiveStatus, enableActiveStatus, addressElement, filtersElement} from './form.js';
 import {generateAdvertise} from './generateAdvertise.js';
 import {mapFiltersList} from './filters.js';
 import {debounce} from './utils/debounce.js';
 
-EnableNonActiveStatus();
+enableNonActiveStatus();
 
 const markers = [];
 
@@ -14,7 +14,7 @@ const map = L.map('map-canvas')
 
   .on('load', () => {
 
-    EnableActiveStatus();
+    enableActiveStatus();
 
     addressElement.value = DEFAULT_LOCATION.lat, DEFAULT_LOCATION.lng;
 
